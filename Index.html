@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Beats - Official Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Hero Section - Full Screen Split */
+        .hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-left {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .hero-right {
+            background: linear-gradient(45deg, #ff6b35 0%, #f7931e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><rect width="60" height="60" fill="none"/><path d="M0 30h60M30 0v60" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/></svg>');
+            opacity: 0.3;
+        }
+
+        .band-name {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.7s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            border: 2px solid #ff6b35;
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid #ffffff;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #ff6b35;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: #ff6b35;
+            transform: scale(1.2);
+        }
+
+        .nav-dot::after {
+            content: attr(data-section);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* About Section */
+        .about {
+            background: #111111;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #ff6b35;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6b35;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Music Section */
+        .music {
+            background: #000000;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .track-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6b35;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .track-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .track-card:hover {
+            transform: translateX(10px);
+        }
+
+        .track-number {
+            font-size: 0.8rem;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-description {
+            color: #cccccc;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .play-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ff6b35;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn:hover {
+            background: #ff8c5a;
+            transform: scale(1.1);
+        }
+
+        .track-duration {
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        /* Tour Section */
+        .tour {
+            background: #111111;
+        }
+
+        .tour-list {
+            margin-top: 3rem;
+        }
+
+        .tour-item {
+            display: grid;
+            grid-template-columns: 150px 1fr 150px;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #333333;
+            transition: all 0.3s ease;
+        }
+
+        .tour-item:hover {
+            background: rgba(255, 107, 53, 0.05);
+            padding-left: 1rem;
+        }
+
+        .tour-date {
+            font-weight: 600;
+            color: #ff6b35;
+        }
+
+        .tour-venue {
+            font-weight: 500;
+        }
+
+        .tour-location {
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        .tour-tickets {
+            text-align: right;
+        }
+
+        .ticket-btn {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            color: #ff6b35;
+            border: 1px solid #ff6b35;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .ticket-btn:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #000000;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: #1a1a1a;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: #1a1a1a;
+            border: 2px solid #333333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: #ff6b35;
+            background: #ff6b35;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left {
+                padding: 2rem;
+            }
+
+            .band-name {
+                font-size: 3rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .tour-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .side-nav {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-nav">
+        <div class="nav-dot active" data-section="Home" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-section="About" onclick="scrollToSection('about')"></div>
+        <div class="nav-dot" data-section="Music" onclick="scrollToSection('music')"></div>
+        <div class="nav-dot" data-section="Tour" onclick="scrollToSection('tour')"></div>
+        <div class="nav-dot" data-section="Contact" onclick="scrollToSection('contact')"></div>
+    </div>
+
+    <section id="hero" class="hero">
+        <div class="hero-left">
+            <h1 class="band-name">PERFECT<br>BEATS</h1>
+            <p class="tagline">Crafting sonic experiences that transcend boundaries</p>
+            <div class="cta-buttons">
+                <a href="#music" class="btn-primary">Listen Now</a>
+                <a href="#tour" class="btn-secondary">See Dates</a>
+            </div>
+        </div>
+        <div class="hero-right"></div>
+    </section>
+
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="about-grid">
+                <div>
+                    <h2 class="section-title">About</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">50M+</span>
+                            <span class="stat-label">Streams</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">200+</span>
+                            <span class="stat-label">Shows</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">15</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>Perfect Beats represents the evolution of modern music, where electronic precision meets human emotion. Our sound emerges from the intersection of technology and soul, creating experiences that resonate on both intellectual and visceral levels.</p>
+                    <p>Born from late-night studio sessions and underground venues, we've developed a signature sound that defies conventional categorization. Each track is meticulously crafted to take listeners on a journey through soundscapes both familiar and otherworldly.</p>
+                    <p>Our commitment to pushing boundaries has earned recognition from critics and fans worldwide, establishing Perfect Beats as a force in contemporary music.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="music" class="section music">
+        <div class="container">
+            <h2 class="section-title">Music</h2>
+            <div class="music-grid">
+                <div class="track-card">
+                    <div class="track-number">01</div>
+                    <h3 class="track-title">Neon Frequencies</h3>
+                    <p class="track-description">A hypnotic journey through digital landscapes and analog warmth</p>
+                    <div class="play-controls">
+                        <button class="play-btn" onclick="playTrack('neon-frequencies')">▶</button>
+                        <span class="track-duration">4:23</span>
+                    </div>
+                </div>
+                <div class="track-card">
+                    <div class="track-number">02</div>
+                    <h3 class="track-title">Midnight Pulse</h3>
+                    <p class="track-description">Dark rhythms that echo through empty city streets</p>
+                    <div class="play-controls">
+                        <button class="play-btn" onclick="playTrack('midnight-pulse')">▶</button>
+                        <span class="track-duration">3:47</span>
+                    </div>
+                </div>
+                <div class="track-card">
+                    <div class="track-number">03</div>
+                    <h3 class="track-title">Electric Dreams</h3>
+                    <p class="track-description">Soaring melodies built on foundation of perfect beats</p>
+                    <div class="play-controls">
+                        <button class="play-btn" onclick="playTrack('electric-dreams')">▶</button>
+                        <span class="track-duration">5:12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tour" class="section tour">
+        <div class="container">
+            <h2 class="section-title">Tour Dates</h2>
+            <div class="tour-list">
+                <div class="tour-item">
+                    <div class="tour-date">JUN 22</div>
+                    <div>
+                        <div class="tour-venue">Electric Dreams Festival</div>
+                        <div class="tour-location">Los Angeles, CA</div>
+                    </div>
+                    <div class="tour-tickets">
+                        <a href="#" class="ticket-btn">Tickets</a>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <div class="tour-date">JUL 05</div>
+                    <div>
+                        <div class="tour-venue">Neon Nights Arena</div>
+                        <div class="tour-location">New York, NY</div>
+                    </div>
+                    <div class="tour-tickets">
+                        <a href="#" class="ticket-btn">Tickets</a>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <div class="tour-date">JUL 18</div>
+                    <div>
+                        <div class="tour-venue">Voltage Music Hall</div>
+                        <div class="tour-location">Chicago, IL</div>
+                    </div>
+                    <div class="tour-tickets">
+                        <a href="#" class="ticket-btn">Tickets</a>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <div class="tour-date">AUG 02</div>
+                    <div>
+                        <div class="tour-venue">Pulse Underground</div>
+                        <div class="tour-location">Austin, TX</div>
+                    </div>
+                    <div class="tour-tickets">
+                        <a href="#" class="ticket-btn">Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title">Contact</h2>
+                <p>Ready to bring Perfect Beats to your venue or event?</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-label">General Inquiries</div>
+                        <div class="contact-value">info@perfectbeatsband.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Booking</div>
+                        <div class="contact-value">booking@perfectbeatsband.com</div>
+                    </div>
+                </div>
+
+                <div class="social-grid">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🎵</a>
+                    <a href="#" class="social-link">🐦</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Side navigation functionality
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update active nav dot on scroll
+        window.addEventListener('scroll', () => {
+            const sections = ['hero', 'about', 'music', 'tour', 'contact'];
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    current = section;
+                }
+            });
+
+            navDots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (sections[index] === current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Play track function
+        function playTrack(trackName) {
+            alert(`Now playing: ${trackName}\n\n(In a real website, this would connect to your music streaming service)`);
+        }
+
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animation
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
